@@ -1,0 +1,15 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Server ###
+others_server/.gradle
+others_server/build/
+!others_server/gradle/wrapper/gradle-wrapper.jar
+!others_server/**/src/main/**/build/
+!others_server/**/src/test/**/build/
