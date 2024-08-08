@@ -1,0 +1,5 @@
+CREATE TABLE counter (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    value INT NOT NULL DEFAULT 0
+);
