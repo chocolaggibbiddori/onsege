@@ -19,8 +19,4 @@ public class CountDto {
         this.name = count.getName();
         this.value = count.getValue();
     }
-
-    public Count newCount() {
-        return new Count(name);
-    }
 }

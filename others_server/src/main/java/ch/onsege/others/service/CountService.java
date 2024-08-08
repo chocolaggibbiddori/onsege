@@ -30,9 +30,21 @@ public class CountService {
     }
 
     @Transactional
-    public void create(CountDto countDto) {
-        Count count = countDto.newCount();
+    public void create(String countName) {
+        if (existName(countName)) throw new IllegalArgumentException("Count name already exists");
+
+        Count count = new Count(countName);
         countRepository.save(count);
+    }
+
+    private boolean existName(String countName) {
+        for (Count count : countRepository.findAll()) {
+            if (count.getName().equals(countName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Transactional
