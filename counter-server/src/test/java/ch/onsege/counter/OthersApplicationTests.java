@@ -1,4 +1,4 @@
-package ch.onsege.others;
+package ch.onsege.counter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

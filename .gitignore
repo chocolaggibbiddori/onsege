@@ -11,8 +11,8 @@ out/
 .env
 
 ### Server ###
-others_server/.gradle
-others_server/build/
-!others_server/gradle/wrapper/gradle-wrapper.jar
-!others_server/**/src/main/**/build/
-!others_server/**/src/test/**/build/
+counter-server/.gradle
+counter-server/build/
+!counter-server/gradle/wrapper/gradle-wrapper.jar
+!counter-server/**/src/main/**/build/
+!counter-server/**/src/test/**/build/

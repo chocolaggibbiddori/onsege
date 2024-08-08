@@ -1,4 +1,4 @@
-package ch.onsege.others.entity;
+package ch.onsege.counter.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Count {
+public class Counter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class Count {
     private String name;
     private int value;
 
-    public Count(String name) {
+    public Counter(String name) {
         this.name = name;
     }
 
