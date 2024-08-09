@@ -9,6 +9,7 @@ out/
 
 ### Application ###
 .env
+data
 
 ### Server ###
 counter-server/.gradle
