@@ -1,0 +1,24 @@
+services:
+  counter-db:
+    build: ./counter-db
+    image: counter-db:1.0.0-compose
+    env_file:
+      - .env
+    volumes:
+      - onsegedb:/var/lib/postgresql/data
+
+    restart: always
+
+  counter-server:
+    build: ./counter-server
+    image: counter-server:1.0.0-compose
+    env_file:
+      - .env
+    depends_on:
+      - counter-db
+    ports:
+      - "8080:8080"
+    restart: on-failure
+
+volumes:
+  onsegedb:
