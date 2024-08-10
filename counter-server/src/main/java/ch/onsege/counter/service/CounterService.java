@@ -30,24 +30,6 @@ public class CounterService {
     }
 
     @Transactional
-    public void create(String counterName) {
-        if (existName(counterName)) throw new IllegalArgumentException("Counter name already exists");
-
-        Counter counter = new Counter(counterName);
-        counterRepository.save(counter);
-    }
-
-    private boolean existName(String counterName) {
-        for (Counter counter : counterRepository.findAll()) {
-            if (counter.getName().equals(counterName)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    @Transactional
     public void increase(String counterName) {
         Optional<Counter> counterOpt = counterRepository.findByName(counterName);
         if (counterOpt.isEmpty()) return;

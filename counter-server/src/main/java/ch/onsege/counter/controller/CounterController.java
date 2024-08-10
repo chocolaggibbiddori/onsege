@@ -33,17 +33,6 @@ public class CounterController {
         return "counter/" + counterDto.getName();
     }
 
-    @GetMapping("/create")
-    public String createCounter() {
-        return "counter/create";
-    }
-
-    @PostMapping
-    public String createCounter(@RequestParam("name") String counterName) {
-        counterService.create(counterName);
-        return "redirect:/counter";
-    }
-
     @PostMapping("/{counterName}/increment")
     public String increase(@PathVariable("counterName") String counterName) {
         counterService.increase(counterName);
