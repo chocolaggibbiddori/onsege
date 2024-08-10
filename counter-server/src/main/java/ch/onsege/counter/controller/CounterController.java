@@ -32,16 +32,4 @@ public class CounterController {
 
         return "counter/" + counterDto.getName();
     }
-
-    @PostMapping("/{counterName}/increment")
-    public String increase(@PathVariable("counterName") String counterName) {
-        counterService.increase(counterName);
-        return "counter/" + counterName;
-    }
-
-    @PostMapping("/{counterName}/decrement")
-    public String decrease(@PathVariable("counterName") String counterName) {
-        counterService.decrease(counterName);
-        return "counter/" + counterName;
-    }
 }

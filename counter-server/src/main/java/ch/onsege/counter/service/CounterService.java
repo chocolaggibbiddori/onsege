@@ -30,20 +30,24 @@ public class CounterService {
     }
 
     @Transactional
-    public void increase(String counterName) {
-        Optional<Counter> counterOpt = counterRepository.findByName(counterName);
-        if (counterOpt.isEmpty()) return;
+    public CounterDto increase(Long counterId) {
+        Optional<Counter> counterOpt = counterRepository.findById(counterId);
+        if (counterOpt.isEmpty()) throw new IllegalArgumentException("There is no counter");
 
         Counter counter = counterOpt.get();
         counter.increase();
+
+        return new CounterDto(counter);
     }
 
     @Transactional
-    public void decrease(String counterName) {
-        Optional<Counter> counterOpt = counterRepository.findByName(counterName);
-        if (counterOpt.isEmpty()) return;
+    public CounterDto decrease(Long counterId) {
+        Optional<Counter> counterOpt = counterRepository.findById(counterId);
+        if (counterOpt.isEmpty()) throw new IllegalArgumentException("There is no counter");
 
         Counter counter = counterOpt.get();
         counter.decrease();
+
+        return new CounterDto(counter);
     }
 }
