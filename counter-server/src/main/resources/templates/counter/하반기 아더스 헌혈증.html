@@ -1,81 +1,141 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counter</title>
-    <!-- 추가된 CSS 스타일 -->
+    <title>Document</title>
     <style>
-        .container {
+        body{
+            margin: auto;
+            background-color: #333;
+            padding: 20px;
+        }
+        .input-group {
+            text-align: right;
+            color: #fff;
+        }
+        .inner {
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
+            width: 1000px;
+            margin: auto;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform:translate(-50%, -50%);
         }
-        .counter {
-            text-align: center;
+        .chart {
+            width: 200px;
+            height: 800px;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #fff;
+            border-radius: 100px;
+            position: relative;
         }
-        .buttons {
-            margin-left: 20px;
+        .chart img {
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            z-index: 1;
         }
-        button {
-            margin: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
+        #chartValue {
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(#FF0004, #FFC2C3);
+            border-radius: 100px;
+            filter: blur(8px);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        .chartExtra {
+            position: absolute;
+            right: -70px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #fff;
+            font-size: 20px;
+        }
+        .chartExtra p {
+            position: relative;
+            z-index: 2;
+        }
+        .chartExtra p::before {
+            content: '';
+            width: 12px;
+            height: 3px;
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            left: -120%;
+            transform: translateY(-3px);
+        }
+        .txt {
+            color: #fff;
+            font-size: 200px;
+            font-weight: 700;
+            display: flex;
+        }
+        #txtValue {
+            color: #FF2C30;
         }
     </style>
-    <!-- jQuery 로드 -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-
 <div class="container">
-    <div class="counter">
-        <!-- 카운터 이름 표시 -->
-        <h1 th:text="${counter.name}">Counter Name</h1>
-        <!-- 카운터 값 표시 -->
-        <h2 id="counterValue" th:text="${counter.value}">0</h2>
+    <div class="input-group">
+        <!-- <label for="dataInput">Enter values </label> -->
+        <input type="text" id="dataInput" placeholder="Enter values">
+        <button onclick="updateParagraph()">Update Chart</button>
     </div>
-    <div class="buttons">
-        <!-- 증가 버튼 -->
-        <button id="incrementButton">증가</button>
-        <!-- 감소 버튼 -->
-        <button id="decrementButton">감소</button>
+    <div class="inner">
+        <div class="chart">
+            <img src="/static/images/mask_chart.png" alt="mask chart">
+            <div id="chartValue"></div>
+            <div class="chartExtra">
+                <p>50</p>
+                <p>25</p>
+                <p>0</p>
+            </div>
+        </div>
+        <div class="txt">
+            <p id="txtValue">0</p>
+            <p>/50</p>
+        </div>
     </div>
 </div>
 
-<!-- 비동기 요청 처리 스크립트 -->
-<script type="text/javascript" th:inline="javascript">
-    $(document).ready(function() {
-        var counterId = /*[[${counter.id}]]*/ 0;
+<script>
+    function updateParagraph() {
+        // Get the value from the input field
+        const inputField = document.getElementById('dataInput');
+        const displayText = document.getElementById('txtValue');
+        const displayChart = document.getElementById('chartValue');
 
-        $('#incrementButton').click(function() {
-            $.ajax({
-                url: '/api/counter/' + counterId + '/increment',
-                type: 'POST',
-                success: function(data) {
-                    $('#counterValue').text(data.value);
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                }
-            });
-        });
+        // Update the paragraph's text content with the input value
+        displayText.textContent = inputField.value;
 
-        $('#decrementButton').click(function() {
-            $.ajax({
-                url: '/api/counter/' + counterId + '/decrement',
-                type: 'POST',
-                success: function(data) {
-                    $('#counterValue').text(data.value);
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                }
-            });
-        });
-    });
+        // Convert the input value to a number
+        let percentage = parseFloat(inputField.value);
+
+        // Validate the percentage value (ensure it's between 0 and 100)
+        if (isNaN(percentage)) {
+            percentage = 0;
+        } else if (percentage < 0) {
+            percentage = 0;
+        } else if (percentage > 100) {
+            percentage = 100;
+        }
+
+        // Update the box's height based on the percentage value
+        displayChart.style.height = (percentage*2) + '%';
+        displayChart.style.maxHeight = 800;
+    }
 </script>
 </body>
 </html>
