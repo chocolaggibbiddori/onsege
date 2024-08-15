@@ -27,9 +27,6 @@ public class CounterController {
     public String getCounterById(@PathVariable("counterId") Long id, Model model) {
         CounterDto counterDto = counterService.findById(id);
         model.addAttribute("counter", counterDto);
-        model.addAttribute("max", 70);
-        model.addAttribute("goal", 50);
-
         return "counter/" + counterDto.getName();
     }
 }
