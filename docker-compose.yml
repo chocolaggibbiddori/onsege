@@ -6,8 +6,8 @@ services:
       - .env
     volumes:
       - onsegedb:/var/lib/postgresql/data
-
-    restart: always
+    networks:
+      onsege-network:
 
   counter-server:
     build: ./counter-server
@@ -18,8 +18,13 @@ services:
       - counter-db
     ports:
       - "8080:8080"
-      - "5005:5005"
-    restart: on-failure
+    networks:
+      onsege-network:
 
 volumes:
   onsegedb:
+
+networks:
+  onsege-network:
+    driver: bridge
+    name: onsege-network
